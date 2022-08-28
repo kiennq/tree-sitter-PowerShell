@@ -29,6 +29,8 @@ module.exports = grammar({
     /[\uFEFF\u2060\u200B\u00A0]/
   ],
 
+  word: $ => $.identifier,
+
   rules: {
     program: $ => seq(
       optional($.param_block),
@@ -49,7 +51,7 @@ module.exports = grammar({
 
     function_definition: $ => seq(
       caseInsensitive('function'),
-      /[_a-z+][_a-z0-9+]*/i,
+      /[_a-zA-Z+][_a-zA-Z0-9+]*/,
       $.scriptblock
     ),
 
@@ -61,9 +63,7 @@ module.exports = grammar({
 
     class_definition: $ => seq(
       caseInsensitive('class'),
-      repeat($._newline),
       /[a-zA-Z_][a-zA-Z0-9_]+/,
-      repeat($._newline),
       '{',
       repeat(
         seq(
@@ -87,7 +87,7 @@ module.exports = grammar({
 
     class_method: $ => seq(
       optional($.type_expr),
-      $.bareword_string,
+      $.identifier,
       '(',
       optional(
         seq(
@@ -119,7 +119,7 @@ module.exports = grammar({
       caseInsensitive('enum'),
       /[a-zA-Z_][a-zA-Z0-9_]+/,
       '{',
-      delimited_seq($.bareword_string, $._statement_terminator, true, true),
+      delimited_seq($.identifier, $._statement_terminator, true, true),
       '}'
     ),
 
@@ -148,7 +148,7 @@ module.exports = grammar({
       )
     ),
 
-    if_statement: $ => seq(
+    if_statement: $ => prec.left(seq(
       caseInsensitive('if'),
       '(',
       $.pipeline_statement,
@@ -157,8 +157,8 @@ module.exports = grammar({
       statement_sequence($),
       '}',
       repeat($.elseif_statement),
-      optional($.else_statement)
-    ),
+      optional($.else_statement),
+    )),
 
     elseif_statement: $ => seq(
       caseInsensitive('elseif'),
@@ -177,7 +177,7 @@ module.exports = grammar({
       '}'
     ),
 
-    while_statement: $ => seq(
+    while_statement: $ => prec.left(seq(
       caseInsensitive('while'),
       '(',
       $.pipeline_statement,
@@ -185,9 +185,9 @@ module.exports = grammar({
       '{',
       statement_sequence($),
       '}'
-    ),
+    )),
 
-    do_while_statement: $ => seq(
+    do_while_statement: $ => prec.right(seq(
       caseInsensitive('do'),
       '{',
       statement_sequence($),
@@ -196,11 +196,11 @@ module.exports = grammar({
       '(',
       $.pipeline_statement,
       ')'
-    ),
+    )),
 
     command_expression: $ => seq(
       choice(
-        $.bareword_string,
+        $.identifier,
         seq('&', $.property_name)
       ),
       repeat(
@@ -211,10 +211,10 @@ module.exports = grammar({
       )
     ),
 
-    command_parameter: $ => /-[a-zA-Z_-]+/i,
+    command_parameter: $ => /-[a-zA-Z_-]+/,
 
     command_argument: $ => choice(
-      $.bareword_string,
+      $.identifier,
       $.number_expr,
       $._string_expr,
       $.variable,
@@ -226,7 +226,7 @@ module.exports = grammar({
     ),
 
     parameter: $ => seq(
-      /-[a-zA-Z_][a-zA-Z0-9_]*/i,
+      /-[a-zA-Z_][a-zA-Z0-9_]*/,
       optional(
         seq(
           ':',
@@ -351,7 +351,7 @@ module.exports = grammar({
 
     property_name: $ => choice(
       $._string_expr,
-      $.bareword_string,
+      $.identifier,
       $.variable
     ),
 
@@ -369,12 +369,13 @@ module.exports = grammar({
     ),
 
     _newline: $ => choice(
+      '\r\n',
       '\n'
     ),
 
-    simple_variable: $ => /\$[a-zA-Z0-9_:]+/i,
+    simple_variable: $ => /\$[a-zA-Z0-9_:]+/,
 
-    splatted_variable: $ => /@[a-zA-Z0-9_:]+/i,
+    splatted_variable: $ => /@[a-zA-Z0-9_:]+/,
 
     _braced_variable: $ => /\${[^}]+}/,
 
@@ -396,7 +397,7 @@ module.exports = grammar({
       $._typename_generic
     ),
 
-    _typename_simple: $ => /[a-zA-Z_][a-zA-Z0-9_.]*/i,
+    _typename_simple: $ => /[a-zA-Z_][a-zA-Z0-9_.]*/,
 
     _typename_array: $ => seq(
       $._typename,
@@ -464,7 +465,7 @@ module.exports = grammar({
       )
     ),
 
-    bareword_string: $ => /[^0-9'"$^&|;()@\-%{}\[\]\s][^'"$^&|;()@!%{}\s]*/,
+    identifier: $ => /[^0-9'"$^&|;()@\-%{}\[\]\s][^'"$^&|;()@!%{}\s]*/,
 
     comment: $ => token(prec(PREC.COMMENT,
       choice(
@@ -492,7 +493,7 @@ function caseInsensitive (keyword) {
 }
 
 function caseInsensitiveOperator(operator) {
-  re = new RegExp(operator
+  let re = new RegExp(operator
     .split('')
     .map(letter => `[${letter}${letter.toUpperCase()}]`)
     .join('')

@@ -9,7 +9,7 @@ Write-Something
 (program
   (pipeline_statement
     (command_expression
-      (bareword_string))))
+      (identifier))))
 
 ===
 Native command
@@ -22,7 +22,7 @@ net.exe
 (program
   (pipeline_statement
     (command_expression
-      (bareword_string))))
+      (identifier))))
 
 ===
 Cmdlet with arguments
@@ -35,7 +35,7 @@ Write-Output 'Hi'
 (program
   (pipeline_statement
     (command_expression
-      (bareword_string)
+      (identifier)
       (command_argument
         (single_quote_string)))))
 
@@ -50,7 +50,7 @@ Write-Output -InputObject 'Hi'
 (program
   (pipeline_statement
     (command_expression
-      (bareword_string)
+      (identifier)
       (command_parameter)
       (command_argument
         (single_quote_string)))))
@@ -66,7 +66,7 @@ Invoke-Thing $argument1 -Parameter 'Thing'
 (program
   (pipeline_statement
     (command_expression
-      (bareword_string)
+      (identifier)
       (command_argument
         (variable
           (simple_variable)))
@@ -85,7 +85,7 @@ Invoke-Thing @arguments
 (program
   (pipeline_statement
     (command_expression
-      (bareword_string)
+      (identifier)
       (command_argument
         (splatted_variable)))))
 
@@ -100,15 +100,15 @@ git clone -b this_branch --single-branch https://github.com/PowerShell/PowerShel
 (program
   (pipeline_statement
     (command_expression
-      (bareword_string)
+      (identifier)
       (command_argument
-        (bareword_string))
+        (identifier))
       (command_parameter)
       (command_argument
-        (bareword_string))
+        (identifier))
       (command_parameter)
       (command_argument
-        (bareword_string)))))
+        (identifier)))))
 
 ===
 Windows-style native command
@@ -121,18 +121,18 @@ net use e: \\usrsvr002\smithmark Ue345Ii /user:pdc01\msmith2 /savecred /p:yes
 (program
   (pipeline_statement
     (command_expression
-      (bareword_string)
+      (identifier)
       (command_argument
-        (bareword_string))
+        (identifier))
       (command_argument
-        (bareword_string))
+        (identifier))
       (command_argument
-        (bareword_string))
+        (identifier))
       (command_argument
-        (bareword_string))
+        (identifier))
       (command_argument
-        (bareword_string))
+        (identifier))
       (command_argument
-        (bareword_string))
+        (identifier))
       (command_argument
-        (bareword_string)))))
+        (identifier)))))

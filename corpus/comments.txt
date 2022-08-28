@@ -19,9 +19,9 @@ Get-ChildItem .
   (comment)
   (pipeline_statement
     (command_expression
-      (bareword_string)
+      (identifier)
       (command_argument
-        (bareword_string)))))
+        (identifier)))))
 
 ===
 Single line block comment
@@ -44,9 +44,9 @@ Get-ChildItem .
   (comment)
   (pipeline_statement
     (command_expression
-      (bareword_string)
+      (identifier)
       (command_argument
-        (bareword_string)))))
+        (identifier)))))
 
 ===
 Multi-line block comment
@@ -77,9 +77,9 @@ Get-ChildItem .
   (comment)
   (pipeline_statement
     (command_expression
-      (bareword_string)
+      (identifier)
       (command_argument
-        (bareword_string)))))
+        (identifier)))))
 
 ===
 Pathological block comment #1

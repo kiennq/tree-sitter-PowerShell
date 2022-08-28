@@ -11,7 +11,7 @@ enum MyEnum
 
 (program
   (enum_definition
-    (bareword_string)))
+    (identifier)))
 
 ===
 More complex enum
@@ -32,10 +32,10 @@ enum Enum2
 
 (program
   (enum_definition
-    (bareword_string)
-    (bareword_string)
-    (bareword_string)
-    (bareword_string)))
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)))
 
 ===
 Basic class 1
@@ -96,11 +96,11 @@ class Class2
   (class_definition
     (class_method
       (type_expr)
-      (bareword_string)
+      (identifier)
       (class_method_body
         (pipeline_statement
           (command_expression
-            (bareword_string)
+            (identifier)
             (command_argument
               (double_quote_string))))))))
 
@@ -122,7 +122,7 @@ class Class2
   (class_definition
     (class_method
       (type_expr)
-      (bareword_string)
+      (identifier)
       (class_parameter
         (simple_variable))
       (class_parameter
@@ -130,7 +130,7 @@ class Class2
       (class_method_body
         (pipeline_statement
           (command_expression
-            (bareword_string)
+            (identifier)
             (command_argument
               (double_quote_string
                 (variable
@@ -169,11 +169,11 @@ class Class2
       (simple_variable))
     (class_method
       (type_expr)
-      (bareword_string)
+      (identifier)
       (class_method_body
       (pipeline_statement
         (command_expression
-          (bareword_string)
+          (identifier)
           (command_argument
             (double_quote_string))))))
     (class_property
@@ -181,7 +181,7 @@ class Class2
       (simple_variable))
     (class_method
       (type_expr)
-      (bareword_string)
+      (identifier)
       (class_parameter
         (simple_variable))
       (class_parameter
@@ -189,7 +189,7 @@ class Class2
       (class_method_body
         (pipeline_statement
           (command_expression
-            (bareword_string)
+            (identifier)
             (command_argument
               (double_quote_string
                 (variable

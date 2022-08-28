@@ -1,0 +1,31 @@
+===
+Simple loop 1
+===
+
+while ($true) {
+}
+
+---
+
+(program
+  (while_statement
+    (pipeline_statement
+      (variable
+        (simple_variable)))))
+
+===
+Simple loop 2
+===
+
+do
+{
+}
+while ($true)
+
+---
+
+(program
+  (do_while_statement
+    (pipeline_statement
+      (variable
+        (simple_variable)))))

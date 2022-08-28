@@ -41,6 +41,7 @@ static bool scan_statement_terminator(void *payload, TSLexer *lexer, const bool 
             lexer->mark_end(lexer);
 
         case '\0':
+        case '\r':
         case '\n':
         case '}':
         case ')':

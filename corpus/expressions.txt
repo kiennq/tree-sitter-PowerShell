@@ -256,7 +256,7 @@ Basic hashtable
     (hashtable_expression
       (hashtable_entry
         (property_name
-            (bareword_string))
+            (identifier))
         (double_quote_string)))))
 
 ===
@@ -279,11 +279,11 @@ Multi-key hashtable
     (hashtable_expression
       (hashtable_entry
         (property_name
-          (bareword_string))
+          (identifier))
         (double_quote_string))
       (hashtable_entry
         (property_name
-          (bareword_string))
+          (identifier))
         (double_quote_string))
       (hashtable_entry
         (property_name

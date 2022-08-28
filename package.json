@@ -5,7 +5,7 @@
   "main": "bindings/node",
   "scripts": {
     "generate": "tree-sitter generate",
-    "test": "tree-sitter test",
+    "test": "tree-sitter generate && tree-sitter test",
     "parse": "tree-sitter parse",
     "parse-debug": "tree-sitter parse -d",
     "start": "npm run generate && npm run parse"
@@ -16,6 +16,6 @@
     "nan": "^2.14.0"
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.15.2"
+    "tree-sitter-cli": "^0.20.0"
   }
 }

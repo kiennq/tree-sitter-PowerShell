@@ -74,8 +74,13 @@ else {
 
 (program
   (if_statement
-   (pipeline_statement
-     (variable
-       (simple_variable))))
+    (pipeline_statement
+      (variable
+        (simple_variable)))
+    (elseif_statement
+      (pipeline_statement
+        (variable
+          (simple_variable))))
+    (else_statement))
 )
 

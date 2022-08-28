@@ -2,6 +2,13 @@ node_modules
 *.swp
 build
 *.gyp
+*.exp
+*.lib
+*.obj
+index.js
+.log/
+Cargo.toml
+
 
 bindings/*
 
